@@ -1,0 +1,235 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "rest-quarkus_example API",
+        "version": "1.0.0-SNAPSHOT"
+    },
+    "tags": [
+        {
+            "name": "Movies",
+            "description": "This package is created to manage all the movies stored in the database,\n  here we can find 2 classes; Movie and MovieResources, where are all the\n endpoints linked to the following methods:\n *  getMovies\n *  countMovies\n *  createMovies\n *  getMovieAuthorById\n *  updateMovie\n *  deleteMovie"
+        },
+        {
+            "name": "Songs",
+            "description": "This package is created to manage all the songs stored in the database,\n  here we can find 2 classes; Songs and SongResources, where are all the\n  endpoints linked to the following methods:\n  - getSongs \n  - countSongs\n  - createSongs\n  - totalDurationSongs\n  - updateGroupSongs\n  - deleteSong"
+        }
+    ],
+    "paths": {
+        "/movies": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "getMovies",
+                "description": " Return all the data about the movies that exists",
+                "responses": {
+                    "200": {
+                        "description": "The return is ok"
+                    },
+                    "404": {
+                        "description": "The path was incorrect"
+                    },
+                    "400": {
+                        "description": "Something went wrong (BAD_REQUEST)"
+                    }
+                },
+                "x-tomweb-api-external": "true"
+            },
+            "post": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "createMovies",
+                "description": "Add a movie including title, id, and author",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Movie"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The movie is added correctly"
+                    },
+                    "404": {
+                        "description": "The path was incorrect"
+                    },
+                    "400": {
+                        "description": "Something went wrong (BAD_REQUEST)"
+                    }
+                },
+                "x-tomweb-api-external": "true"
+            }
+        },
+        "/movies/author/{id}": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "getMovieAuthorById",
+                "description": "Returns a movie knowing the id of the author",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "format": "int64",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The return is ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The path was incorrect"
+                    },
+                    "400": {
+                        "description": "Something went wrong (BAD_REQUEST)"
+                    }
+                },
+                "x-tomweb-api-external": "true"
+            }
+        },
+        "/movies/size": {},
+        "/movies/{id}": {},
+        "/movies/{id}/{title}": {},
+        "/songs": {
+            "get": {
+                "tags": [
+                    "Songs"
+                ],
+                "summary": "getSongs",
+                "description": " Return all the data about the songs that exists",
+                "responses": {
+                    "200": {
+                        "description": "The return is ok"
+                    },
+                    "404": {
+                        "description": "The path was incorrect"
+                    },
+                    "400": {
+                        "description": "Something went wrong (BAD_REQUEST)"
+                    }
+                },
+                "x-tomweb-api-external": "true"
+            },
+            "post": {
+                "tags": [
+                    "Songs"
+                ],
+                "summary": "createSong",
+                "description": "Add a song including name, id, duration and group which belongs",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Song"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The song is added correctly"
+                    },
+                    "404": {
+                        "description": "The path was incorrect"
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                },
+                "x-tomweb-api-external": "true"
+            }
+        },
+        "/songs/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Songs"
+                ],
+                "summary": "deleteSong",
+                "description": "Deletes  a song from the DB knowing the id of the song",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "The song was removed correctly"
+                    },
+                    "404": {
+                        "description": "The path was incorrect"
+                    },
+                    "400": {
+                        "description": "Something went wrong (BAD_REQUEST)"
+                    }
+                },
+                "x-tomweb-api-external": "true"
+            }
+        },
+        "/songs/modifyGroup/{id}/{newGroupName}": {},
+        "/songs/size": {}
+    },
+    "components": {
+        "schemas": {
+            "Movie": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int64",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "duration": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                }
+            },
+            "Song": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "group": {
+                        "type": "string"
+                    },
+                    "duration": {
+                        "format": "int64",
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}

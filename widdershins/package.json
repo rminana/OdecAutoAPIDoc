@@ -1,0 +1,14 @@
+{
+  "name": "widdershins",
+  "version": "1.0.0",
+  "description": "this is a test for a quarkusRESTAPI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "widdershins": "^4.0.1"
+  }
+}
